@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 18, 2026 at 09:56 AM
+-- Generation Time: Mar 18, 2026 at 07:15 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -66,29 +66,32 @@ CREATE TABLE `contacts` (
 INSERT INTO `contacts` (`id`, `fullname`, `email`, `subject`, `message`, `status`, `created_at`) VALUES
 (1, 'Shiina Mahiru', '123@gmail.com', '...', 'Niceヾ(≧▽≦*)o', 0, '2026-03-17 15:55:46'),
 (2, 'Miku', 'Miku@gmail.com', '...', 'Good job(●\'◡\'●)', 0, '2026-03-17 16:00:48'),
-(3, 'Sakura', 'Sakura@gmail.com', '...', 'Nice(❁´◡`❁)', 0, '2026-03-17 20:36:10');
+(3, 'Sakura', 'Sakura@gmail.com', '...', 'Nice(❁´◡`❁)', 0, '2026-03-17 20:36:10'),
+(4, 'Lucy', 'Lucy@gmail.com', 'Experience', 'Nice:D', 0, '2026-03-18 16:14:07');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_history`
+-- Table structure for table `orders`
 --
 
-CREATE TABLE `login_history` (
+CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `login_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `ip_address` varchar(50) DEFAULT NULL
+  `fullname` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `product_name` text,
+  `total_price` int(11) DEFAULT NULL,
+  `order_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `login_history`
+-- Dumping data for table `orders`
 --
 
-INSERT INTO `login_history` (`id`, `email`, `login_time`, `ip_address`) VALUES
-(1, 'Sakura@gmail.com', '2026-03-18 03:12:01', '::1'),
-(2, 'Miku@gmail.com', '2026-03-18 06:35:50', '::1'),
-(3, '1234@gmail.com', '2026-03-18 08:33:30', '::1');
+INSERT INTO `orders` (`id`, `fullname`, `email`, `product_name`, `total_price`, `order_time`) VALUES
+(1, 'Lucy', 'Lucy@gmail.com', 'Netoge no Yome ga Ninki Idol datta ken ~Cool-kei no kanojo wa genjitsu demo yome no tsumori de iru~ - Vol 1 (x1), Arya Bàn Bên - Vol 2 (x1)', 205000, '2026-03-18 15:58:19'),
+(2, 'Khách ẩn danh', 'Lucy@gmail.com', 'Kanojo, okarishimasu - Vol 1 (x1)', 110000, '2026-03-18 18:29:40'),
+(3, 'Khách ẩn danh', 'Lucy@gmail.com', 'Kanojo, okarishimasu - Vol 1 (x1)', 110000, '2026-03-18 18:34:28');
 
 -- --------------------------------------------------------
 
@@ -118,6 +121,31 @@ INSERT INTO `products` (`id`, `name`, `price`, `description`, `image_id`) VALUES
 (7, 'Saekano - Vol 1', '110000.00', 'LightNovel Saekano Hay tên đầy đủ(English):\"How to Raise a Boring Girlfriend\" kể về Aki Tomoya, một học sinh trung học quyết tâm tạo ra một game hẹn hò (Bishōjo game) dựa trên cuộc gặp gỡ định mệnh với Katō Megumi. Cậu thành lập nhóm sản xuất cùng các nữ chính khác để biến Megumi thành \"nữ chính hoàn hảo\" trong game, dẫn đến nhiều tình huống hài hước và lãng mạn. ', 'saekano_v1.jpg'),
 (8, 'Arya Bàn Bên - Vol 3', '95000.00', ' Tập trung vào sự phát triển tình cảm của Arya và Masachika sau các sự kiện hội học sinh. Cặp đôi dần thấu hiểu nhau hơn.', 'arya_v3.jpg');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `login_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `ip_address` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `login_time`, `ip_address`) VALUES
+(1, 'Sakura', 'Sakura@gmail.com', 'Sakura123456', '2026-03-18 03:12:01', '::1'),
+(2, 'Hatsune Miku', 'Miku@gmail.com', 'Miku123456', '2026-03-18 06:35:50', '::1'),
+(3, 'Shinto', '1234@gmail.com', 'Shinto123', '2026-03-18 08:33:30', '::1'),
+(4, 'Lucy', 'Lucy@gmail.com', 'lucy@1234', '2026-03-18 22:56:32', '::1');
+
 --
 -- Indexes for dumped tables
 --
@@ -136,15 +164,21 @@ ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `login_history`
+-- Indexes for table `orders`
 --
-ALTER TABLE `login_history`
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -161,19 +195,25 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `login_history`
+-- AUTO_INCREMENT for table `orders`
 --
-ALTER TABLE `login_history`
+ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

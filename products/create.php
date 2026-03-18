@@ -2,6 +2,12 @@
 session_start();
 require_once '../db.php';
 require_once("../auth_check.php");
+
+if (!isset($_SESSION['admin_logged_in'])) {
+    header("Location: ../index.php"); // Admin
+    exit();
+}
+
 //Check Bug
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);

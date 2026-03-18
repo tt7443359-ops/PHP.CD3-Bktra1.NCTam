@@ -3,13 +3,11 @@ session_start();
 $_SESSION = array();
 session_destroy();
 
-// Ép Cookie hết hạn
-setcookie("stored_email", "", time() - 3600, "/");
-setcookie("stored_password", "", time() - 3600, "/");
+// Đẩy ngược
+setcookie("stored_email", "", time() - 86400, "/");
+setcookie("stored_password", "", time() - 86400, "/");
+setcookie("stored_username", "", time() - 86400, "/");
 
-//JS replace
-echo "<script>
-    window.location.replace('index.php');
-</script>";
+echo "<script>window.location.replace('index.php');</script>";
 exit();
 ?>

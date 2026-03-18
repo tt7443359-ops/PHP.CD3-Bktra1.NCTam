@@ -125,8 +125,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <a href="index.php">Trang Chủ</a>
         <?php 
         // Hiện nếu là Khách hoặc Admin
-        if (isset($_COOKIE['stored_email']) || isset($_SESSION['admin_logged_in'])): 
-        ?>
+        if (isset($_SESSION['user']) || isset($_SESSION['admin_logged_in'])): ?>
             <a href="products/index1.php">Sản phẩm</a>
         <?php endif; ?>
         <a href="contact.php">Liên hệ</a>
@@ -144,12 +143,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
         <?php if (isset($_SESSION['admin_logged_in'])): ?>
             <p style="font-weight: bold; color: #d64d76;">
-                HI ADMIN!
-        <?php elseif (isset($_COOKIE['stored_email'])): ?>
+                HI ADMIN! 
+            </p>
+        
+        <?php elseif (isset($_SESSION['user']) || isset($_COOKIE['stored_email'])): ?>
             <p style="font-style: italic; color: #c4d4d4;">
                 NHÌN C** VÀO MUA SẢN PHẨM ĐỂ ỦNG HỘ ADMIN
             </p>
-    
+        
         <?php else: ?>
             <a href="register.php" class="btn btn-primary">Đăng Ký</a>
             <a href="login.php" class="btn btn-secondary">Đăng Nhập</a>

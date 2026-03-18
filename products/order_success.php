@@ -1,16 +1,60 @@
 <?php
-session_start();
-require_once 'db_product.php';
-require_once("../auth_check.php");
-
-// Nếu không có giỏ hàng và cũng không có ID đặt hàng.
-if ((!isset($_SESSION['cart']) || empty($_SESSION['cart'])) && !isset($_GET['id'])) {
-    header("Location: index1.php");
-    exit();
-}
-
-//Hoàn tất quy trình mua sắm
-unset($_SESSION['cart']); 
+    session_start();
+    require_once 'db_product.php'; 
+    require_once '../auth_check.php';
+    
+    // Đặt hàng tại chỗ
+    $product_list = "";
+    $grand_total = 0;
+    
+    if (isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        $res = mysqli_query($conn, "SELECT name, price FROM products WHERE id = $id");
+        $p = mysqli_fetch_assoc($res);
+        if ($p) {
+            $product_list = $p['name'] . " (x1)";
+            $grand_total = $p['price'];
+        }
+    } 
+    
+    //Kiểm tra giỏ hàng
+    if (empty($product_list)) {
+        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+            header("Location: index1.php");
+            exit();
+        }
+    
+        foreach ($_SESSION['cart'] as $id => $qty) {
+            $res = mysqli_query($conn, "SELECT name, price FROM products WHERE id = $id");
+            $p = mysqli_fetch_assoc($res);
+            if ($p) {
+                $product_list .= $p['name'] . " (x" . $qty . "), ";
+                $grand_total += ($p['price'] * $qty);
+            }
+        }
+        $product_list = rtrim($product_list, ", ");
+    }
+    
+    // Lấy thông tin người mua 
+    $buyer_name = "Khách ẩn danh";
+    if (isset($_SESSION['user']['fullname'])) {
+        $buyer_name = $_SESSION['user']['fullname'];
+    } elseif (isset($_COOKIE['stored_username'])) {
+        $buyer_name = $_COOKIE['stored_username'];
+    }
+    $buyer_email = $_SESSION['user']['email'] ?? $_COOKIE['stored_email'] ?? "Không rõ";
+    
+    // Lưu vào CSDL
+    $sql_order = "INSERT INTO orders (fullname, email, product_name, total_price) 
+                  VALUES ('$buyer_name', '$buyer_email', '$product_list', '$grand_total')";
+    
+    if (mysqli_query($conn, $sql_order)) {
+        if (isset($_SESSION['cart'])) {
+            unset($_SESSION['cart']); 
+        }
+    } else {
+        die("Lỗi CSDL: " . mysqli_error($conn));
+    }
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +103,7 @@ unset($_SESSION['cart']);
             color: #7f8c8d;
             font-size: 15px;
             margin-bottom: 25px;
+            line-height: 1.6;
         }
         .btn-return {
             background-color: #2c3e50;
@@ -81,7 +126,10 @@ unset($_SESSION['cart']);
 <div class="order-box">
     <div class="check-icon">✓</div>
     <h1>Hoàn tất đặt hàng!</h1>
-    <p>Hệ thống đã ghi nhận đơn hàng<br>Cảm ơn quý khách đã tin tưởng lựa chọn Shop Light Novel của <strong>NCTâm</strong>.</p>
+    <p>Chào <b><?php echo htmlspecialchars($buyer_name); ?></b>,<br>
+       Hệ thống đã ghi nhận đơn hàng.<br>
+       Cảm ơn Quý Khách đã tin tưởng lựa chọn Shop của <strong>NCTâm</strong>.
+    </p>
     <a href="index1.php" class="btn-return">Quay lại cửa hàng</a>
 </div>
 

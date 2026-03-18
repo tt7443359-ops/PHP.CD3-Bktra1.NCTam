@@ -1,60 +1,46 @@
 <?php
     session_start();
-    require_once 'db.php';
+    require_once 'db.php'; 
     
     $errors = [];
-    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $email = isset($_POST['email']) ? mysqli_real_escape_string($conn, trim($_POST['email'])) : '';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = $_POST['password'] ?? '';
 
-        // KIỂM TRA ADMIN
-        $email_esc = mysqli_real_escape_string($conn, $email);
-        $sql = "SELECT * FROM `admin` WHERE (username = '$email_esc' OR email = '$email_esc') AND password = '$password' LIMIT 1";
-        $result = mysqli_query($conn, $sql);
-
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $_SESSION['admin_logged_in'] = true;
-            $_SESSION['admin_user'] = $row['username'];
-            
-            header("Location: dashboard.php"); 
-            exit();
-        }
-        //Khách
-        // Lấy dữ liệu từ Cookie đã lưu ở trang Register
-        $cookie_email = $_COOKIE['stored_email'] ?? '';
-        $cookie_pass = $_COOKIE['stored_password'] ?? '';
-
-        // Ktra đăng nhập
         if (empty($email) || empty($password)) {
             $errors['login'] = "Vui lòng nhập đầy đủ thông tin.";
-        } elseif ($email === $cookie_email && $password === $cookie_pass) {
-            $_SESSION["user"] = $email;  
-
-            // Chặn ghi nếu là admin
-            global $admin_email; 
-            if ($email !== $admin_email) {
-                $ip = $_SERVER['REMOTE_ADDR']; 
-        
-                // Chống lặp trong 1 giờ
-                $check_sql = "SELECT id FROM login_history 
-                              WHERE email = '$email' 
-                              AND login_time > NOW() - INTERVAL 1 HOUR";
-                $check_res = mysqli_query($conn, $check_sql);
-        
-                if (mysqli_num_rows($check_res) == 0) {
-                    $log_sql = "INSERT INTO login_history (email, ip_address) VALUES ('$email', '$ip')";
-                    mysqli_query($conn, $log_sql); 
-                }
-            }
-             
-            // khớp -> Chuyển 
-            header("Location: products/index1.php");
-            exit();
         } else {
-            // Không khớp
-            $errors['login'] = "Email hoặc mật khẩu không chính xác.";
+            // 1. Kiểm tra Admin
+            $sql_admin = "SELECT * FROM `admin` WHERE (username = '$email' OR email = '$email') AND password = '$password' LIMIT 1";
+            $res_admin = mysqli_query($conn, $sql_admin);
+
+            if (mysqli_num_rows($res_admin) > 0) {
+                $row = mysqli_fetch_assoc($res_admin);
+                $_SESSION['admin_logged_in'] = true;
+                $_SESSION['admin_user'] = $row['username'];
+                header("Location: dashboard.php"); 
+                exit();
+            }
+
+            // 2. Kiểm tra khách (Truy vấn users)
+            $sql_user = "SELECT * FROM users WHERE email = '$email' AND password = '$password' LIMIT 1";
+            $res_user = mysqli_query($conn, $sql_user);
+
+            if (mysqli_num_rows($res_user) > 0) {
+               $user_data = mysqli_fetch_assoc($res_user);
+               $_SESSION["user"] = $user_data['email'];
+               $_SESSION["username"] = $user_data['fullname'];
+            
+               // Hồi sinh cookie
+               setcookie("stored_email", $user_data['email'], time() + 86400, "/");
+               setcookie("stored_password", $user_data['password'], time() + 86400, "/");
+            
+               header("Location: products/index1.php");
+               exit();
+            } else {
+                $errors['login'] = "Email hoặc mật khẩu không chính xác.";
+            }
         }
     }
 ?>

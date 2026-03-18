@@ -68,8 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="index.php">Trang Chủ</a>
          <?php 
         // Hiện nếu là Khách hoặc Admin
-        if (isset($_COOKIE['stored_email']) || isset($_SESSION['admin_logged_in'])): 
-        ?>
+         if (isset($_SESSION['user']) || isset($_SESSION['admin_logged_in'])): ?>
             <a href="products/index1.php">Sản phẩm</a>
         <?php endif; ?>
         <a href="contact.php">Liên Hệ</a>

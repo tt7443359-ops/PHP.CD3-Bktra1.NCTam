@@ -4,7 +4,7 @@ require_once("../auth_check.php");
 require_once("db_product.php");
 
 // Phân quyền dùng chung: Admin hoặc Khách
-if (!isset($_SESSION['admin_logged_in']) && !isset($_COOKIE['stored_email'])) {
+if (!isset($_SESSION['admin_logged_in']) && !isset($_SESSION['user']) && !isset($_COOKIE['stored_email'])) {
     header("Location: ../login.php");
     exit();
 }

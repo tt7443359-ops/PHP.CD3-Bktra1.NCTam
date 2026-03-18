@@ -1,53 +1,63 @@
 <?php
-    $errors = [];
-    $success_msg = "";
-    $username = "";
-    $email = "";
+require_once("db.php"); 
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // (1: Chống XSS)
-        $username = htmlspecialchars(trim($_POST['username'] ?? ''));
-        $email = htmlspecialchars(trim($_POST['email'] ?? ''));
-        $password = $_POST['password'] ?? '';
-        $confirm = $_POST['confirm_password'] ?? '';
+$errors = [];
+$username = "";
+$email = "";
 
-        // 1. Kiểm tra Họ tên
-        if (empty($username)) {
-            $errors['username'] = "Vui lòng nhập họ tên.";
-        }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = htmlspecialchars(trim($_POST['username'] ?? ''));
+    $email = htmlspecialchars(trim($_POST['email'] ?? ''));
+    $password = $_POST['password'] ?? '';
+    $confirm = $_POST['confirm_password'] ?? '';
 
-        // 2. Kiểm tra Email
-        if (empty($email)) {
-            $errors['email'] = "Vui lòng nhập email.";
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = "Email không đúng định dạng.";
-        }
+    // 1. Kiểm tra các trường trống và định dạng
+    if (empty($username)) $errors['username'] = "Vui lòng nhập họ tên.";
+    if (empty($email)) {
+        $errors['email'] = "Vui lòng nhập email.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Email không đúng định dạng.";
+    }
 
-        // 3. Kiểm tra Mật khẩu
-        if (empty($password)) {
-            $errors['password'] = "Vui lòng nhập mật khẩu.";
-        } elseif (strlen($password) < 6) {
-            $errors['password'] = "Mật khẩu phải có ít nhất 6 ký tự.";
-        }
-
-        // 4. Xác nhận mật khẩu 
-        if ($password !== $confirm) {
-            $errors['confirm_password'] = "Mật khẩu xác nhận không khớp.";
-        }
-
-        //Không lỗi -> Thành công
-        if (empty($errors)) {
-            // 1. Lưu thông tin vào Cookie (hạn 1 giờ)
-            setcookie("stored_username", $username, time() + 3600, "/");
-            setcookie("stored_email", $email, time() + 3600, "/");
-            setcookie("stored_password", $_POST['password'], time() + 3600, "/");
-
-            // 2. Chuyển hướng 
-            header("Location: login.php");
-            exit(); 
+    // 2. Chặn trùng mail
+    if (empty($errors)) {
+        $check_mail = "SELECT id FROM users WHERE email = '$email' LIMIT 1";
+        $result = mysqli_query($conn, $check_mail);
+        if (mysqli_num_rows($result) > 0) {
+            $errors['email'] = "Email này đã được đăng ký. Vui lòng dùng mail khác!";
         }
     }
-    ?>
+
+    // 3. Kiểm tra Mật khẩu
+    if (empty($password)) {
+        $errors['password'] = "Vui lòng nhập mật khẩu.";
+    } elseif (strlen($password) < 6) {
+        $errors['password'] = "Mật khẩu phải có ít nhất 6 ký tự.";
+    }
+    if ($password !== $confirm) {
+        $errors['confirm_password'] = "Mật khẩu xác nhận không khớp.";
+    }
+
+    // 4. Lưu vào csdl và cookie
+    if (empty($errors)) {
+        $ip = $_SERVER['REMOTE_ADDR']; // Lấy ip users
+        // Lưu vào bảng users
+        $sql = "INSERT INTO users (fullname, email, password, ip_address) VALUES ('$username', '$email', '$password', '$ip')";
+        
+        if (mysqli_query($conn, $sql)) {
+            // Set Cookie
+            setcookie("stored_username", $username, time() + 86400, "/");
+            setcookie("stored_email", $email, time() + 86400, "/");
+            setcookie("stored_password", $password, time() + 86400, "/");
+
+            header("Location: login.php?msg=success");
+            exit();
+        } else {
+            $errors['system'] = "Lỗi hệ thống, vui lòng thử lại!";
+        }
+    }
+}
+?>
 
 
 <!DOCTYPE html>

@@ -42,7 +42,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 
     .navbar {
       background: #f5f5f5;
-      padding: 15px 60px;
+      padding: 25px 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -50,21 +50,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
     }
 
     .logo-container {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        border: 2px solid #4f46e5;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      border: 2px solid #4f46e5;
     }
 
-    .logo-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
 
     .nav-links a {
       text-decoration: none;
@@ -95,36 +83,44 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
       font-size: 28px;
     }
 
-    .btn-add {
-      background: linear-gradient(75deg, #7551d8, #64c5c5 , #1992d8);
-      color: white;
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 10px;
+
+    .btn-add, .btn-edit01 {
+      display: inline-flex;  
+      align-items: center;
+      justify-content: center;
+      height: 45px !important;  
+      padding: 0 15px !important; 
+      font-size: 14px !important;
       font-weight: 600;
+      border-radius: 8px;       
+      text-decoration: none;
       transition: 0.3s;
+      box-sizing: border-box;   
+    }
+    
+    .btn-add {
+      background: linear-gradient(75deg, #7551d8, #64c5c5, #1992d8);
+      color: white;
+      border: none;
       box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
     }
-
+    
     .btn-add:hover {
       background: linear-gradient(75deg, #7551d8, #64c5c5);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
     }
 
-    .btn-edit {
-      color: #4f46e5;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 5px 12px;
-      border: 1px solid #4f46e5;
-      border-radius: 6px;
-      transition: 0.2s;
+    .btn-edit01 {
+      color: #64c5c5;        
+      border: 1px solid #2f9c9c;
+      background: white;
     }
-
-    .btn-edit:hover {
-      background: #4f46e5;
-      color: white;
+    
+    .btn-edit01:hover {
+      background: #d1f8ef;     
+      color: #4f46e5;
+      border-color: #4f46e5;
     }
 
     .btn-delete {
@@ -141,6 +137,21 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
       background: #ef4444;
       color: white;
     }
+    .btn-edit {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 5px 12px;
+      border: 1px solid #4f46e5;
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+
+    .btn-edit:hover {
+      background: #4f46e5;
+      color: white;
+    }
+    
 
     footer {
       text-align: center;
@@ -177,11 +188,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
       margin-bottom: 10px;
     }
       
-    .product-name{
-      font-weight:600;
-      font-size:16px;
-      margin-bottom:10px;
-    }
+    .product-name {
+      font-size: 15px; font-weight: 600; color: #333;
+      margin: 12px 0 5px; line-height: 1.4;
+      height: 42px; 
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+  }
       
     .product-actions{
       display:flex;
@@ -265,15 +279,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
              <a href="index1.php?action=delete&id=<?php echo $row['id']; ?>" 
                 onclick="return confirm('D**m Tk Gay')" class="btn-delete">Xóa</a>
      
-         <?php //Nếu là khách
-             elseif (isset($_COOKIE['stored_email'])): ?>
-             <a href="add_to_cart.php?id=<?php echo $row['id']; ?>" class="btn-edit" style="border-color: #64c5c5; color: #64c5c5;">
+         <?php // Nếu là Khách (Check cả Session hoặc Cookie)
+             elseif (isset($_SESSION['user']) || isset($_COOKIE['stored_email'])): ?>
+             <a href="add_to_cart.php?id=<?php echo $row['id']; ?>" class="btn-edit01" style="border-color: #64c5c5; color: #64c5c5;">
                  Thêm giỏ hàng
              </a>
-             <a href="order_success.php?id=<?php echo $row['id']; ?>" class="btn-add" style="padding: 5px 12px; font-size: 13px; display: inline-flex; align-items: center;">
+             <a href="order_success.php?action=buy_now&id=<?php echo $row['id']; ?>" class="btn-add">
                  Đặt hàng
              </a>
-     
+         
          <?php else: ?>
              <a href="../login.php" style="font-size: 12px; color: #999; text-decoration: none;">
                  Đăng nhập để mua hàng

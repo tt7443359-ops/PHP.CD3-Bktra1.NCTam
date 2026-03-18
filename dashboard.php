@@ -11,7 +11,7 @@ function countRows($conn, $table, $column = "*") {
 
 // Lấy thông số từ CSDL
 $total_products = countRows($conn, "products");
-$total_users    = countRows($conn, "login_history", "email"); 
+$total_users    = countRows($conn, "users", "email"); 
 $total_orders   = countRows($conn, "contacts");
 ?>
 <!DOCTYPE html>

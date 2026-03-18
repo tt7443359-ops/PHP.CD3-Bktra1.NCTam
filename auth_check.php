@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// Chặn cache
-header("Cache-Control: no-cache, no-store, must-revalidate"); 
-header("Pragma: no-cache"); 
-header("Expires: 0"); 
-
-if (!isset($_COOKIE['stored_email']) && !isset($_SESSION['admin_logged_in'])) {
+if (!isset($_SESSION['user']) && !isset($_SESSION['admin_logged_in']) && !isset($_COOKIE['stored_email'])) {
     header("Location: /PHP.CD3-Bktra1.Tam/login.php"); 
     exit();
+}
+
+// Nếu có Cookie nhưng mất Session, có thể tự động khôi phục Session
+if (!isset($_SESSION['user']) && isset($_COOKIE['stored_email'])) {
+    $_SESSION['user'] = $_COOKIE['stored_email'];
 }
 ?>
