@@ -19,7 +19,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Quản Lý Sản Phẩm</title>
+  <title>Sản Phẩm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="Stylesheet" href="../logo.css">
@@ -217,8 +217,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
                 $total_items += $qty;
             }
         }
+        // Hiển thị nếu không phải Ad
+        if (!isset($_SESSION['admin_logged_in'])): 
         ?>
-        <a href="view_cart.php" class="btn-cart" style="position: relative; margin-right: 15px; text-decoration: none;">
+        <a href="view_cart.php" class="btn-cart" style="position: relative; margin-right: 15px; text-decoration: none; color: inherit;">
             🛒 Giỏ hàng 
             <?php if ($total_items > 0): ?>
                 <span style="background: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 11px; position: absolute; top: -10px; right: -15px; font-weight: bold;">
@@ -226,11 +228,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
                 </span>
             <?php endif; ?>
         </a>
+    <?php endif; ?>
       <?php 
       // Hiện nếu Admin
       if (isset($_SESSION['admin_logged_in'])): 
         ?>
       <a href="../dashboard.php">Dashboard</a>
+      <a href="../products/admin_products.php">admin_products</a>
       <?php endif; ?>
       <a href="../products/index1.php">Sản phẩm</a>
       <a href="../contact.php">Liên Hệ</a>
@@ -240,13 +244,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 
   <div class="container">
     <div class="header-action">
-      <h2>Danh Sách Sản Phẩm</h2>
-      <?php
-      // Hiện nếu Admin
-      if (isset($_SESSION['admin_logged_in'])): 
-        ?>
-      <a href="create.php" class="btn-add">+ Thêm Sản Phẩm Mới</a>
-      <?php endif; ?>
+    <h2>Danh Sách Sản Phẩm</h2>
+    <div style="width: 150px;"></div> 
     </div>
 
     <div class="product-grid">
@@ -275,10 +274,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
         <div class="product-actions">
          <?php // Hiện nếu Admin
              if (isset($_SESSION['admin_logged_in'])): ?>
-             <a href="update.php?id=<?php echo $row['id']; ?>" class="btn-edit">Sửa</a>
-             <a href="index1.php?action=delete&id=<?php echo $row['id']; ?>" 
-                onclick="return confirm('D**m Tk Gay')" class="btn-delete">Xóa</a>
-     
          <?php // Nếu là Khách (Check cả Session hoặc Cookie)
              elseif (isset($_SESSION['user']) || isset($_COOKIE['stored_email'])): ?>
              <a href="add_to_cart.php?id=<?php echo $row['id']; ?>" class="btn-edit01" style="border-color: #64c5c5; color: #64c5c5;">

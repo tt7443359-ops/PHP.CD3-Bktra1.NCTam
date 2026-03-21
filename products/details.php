@@ -61,8 +61,13 @@ if (!$product) {
             <p class="desc"><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
             
             <div class="buy-actions">
+                <?php
+                // Hiển thị nếu không phải Ad
+                if (!isset($_SESSION['admin_logged_in'])): 
+                ?>
                 <a href="add_to_cart.php?id=<?php echo $product['id']; ?>" class="btn-buy" style="background: #64c5c5;">Thêm giỏ hàng</a>
                 <a href="checkout.php?id=<?php echo $product['id']; ?>" class="btn-buy">Mua Ngay</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 18, 2026 at 07:15 PM
+-- Generation Time: Mar 21, 2026 at 10:59 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -79,7 +79,7 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `fullname` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `product_name` text,
+  `product_id` varchar(255) NOT NULL,
   `total_price` int(11) DEFAULT NULL,
   `order_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -88,10 +88,9 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `fullname`, `email`, `product_name`, `total_price`, `order_time`) VALUES
-(1, 'Lucy', 'Lucy@gmail.com', 'Netoge no Yome ga Ninki Idol datta ken ~Cool-kei no kanojo wa genjitsu demo yome no tsumori de iru~ - Vol 1 (x1), Arya Bàn Bên - Vol 2 (x1)', 205000, '2026-03-18 15:58:19'),
-(2, 'Khách ẩn danh', 'Lucy@gmail.com', 'Kanojo, okarishimasu - Vol 1 (x1)', 110000, '2026-03-18 18:29:40'),
-(3, 'Khách ẩn danh', 'Lucy@gmail.com', 'Kanojo, okarishimasu - Vol 1 (x1)', 110000, '2026-03-18 18:34:28');
+INSERT INTO `orders` (`id`, `fullname`, `email`, `product_id`, `total_price`, `order_time`) VALUES
+(1, 'Khách ẩn danh', 'Sakura@gmail.com', '5', 110000, '2026-03-21 07:28:28'),
+(2, 'Khách ẩn danh', 'Sakura@gmail.com', '7, 2, 4', 300000, '2026-03-21 07:29:41');
 
 -- --------------------------------------------------------
 
@@ -195,19 +194,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

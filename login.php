@@ -6,7 +6,7 @@
     $email = isset($_POST['email']) ? mysqli_real_escape_string($conn, trim($_POST['email'])) : '';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $password = $_POST['password'] ?? '';
+        $password = isset($_POST['password']) ? mysqli_real_escape_string($conn, $_POST['password']) : '';
 
         if (empty($email) || empty($password)) {
             $errors['login'] = "Vui lòng nhập đầy đủ thông tin.";
@@ -137,11 +137,39 @@ input:focus{
     text-decoration:underline;
 }
 
+/* ANIMATIONS */
+.fade-in-down {
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container fade-in-down">
     <h2>Đăng Nhập</h2>
       <!-- Login Form -->
         <?php if(isset($errors['login'])): ?>

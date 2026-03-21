@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE products SET name='$name', price='$price', description='$description', image_id='$image' WHERE id='$id'";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: index1.php");
+        header("Location: admin_products.php");
         exit();
     }
 }

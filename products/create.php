@@ -3,31 +3,28 @@ session_start();
 require_once '../db.php';
 require_once("../auth_check.php");
 
-if (!isset($_SESSION['admin_logged_in'])) {
-    header("Location: ../index.php"); // Admin
-    exit();
-}
-
-//Check Bug
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = mysqli_real_escape_string($conn, $_POST["id"]);
     $name = mysqli_real_escape_string($conn, $_POST["name"]);
     $price = mysqli_real_escape_string($conn, $_POST["price"]);
     $description = mysqli_real_escape_string($conn, $_POST["description"]);
-    $image = mysqli_real_escape_string($conn, $_POST["image"]); 
+    
+    // 2. Xử lý tệp ảnh
+    $image_name = $_FILES['image']['name']; // Lấy tên file ảnh
+    $target = "../img.products/" . basename($image_name);
 
-    $sql = "INSERT INTO products (id, name, price, description, image_id) 
-        VALUES ('$id', '$name', '$price', '$description', '$image')";
+    // Di chuyển ảnh vào thư mục img.products
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+        $sql = "INSERT INTO products (name, price, description, image_id) 
+                VALUES ('$name', '$price', '$description', '$image_name')";
 
-    if (mysqli_query($conn, $sql)) {
-        header("Location: index1.php"); 
-        exit();
+        if (mysqli_query($conn, $sql)) {
+            header("Location: admin_products.php "); 
+            exit();
+        } else {
+            echo "Lỗi: " . mysqli_error($conn);
+        }
     } else {
-        echo "Lỗi: " . mysqli_error($conn);
+        echo "Lỗi: Không thể tải ảnh lên thư mục img.products!";
     }
 }
 ?>
@@ -68,11 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="main-content">
         <div class="form-card">
             <h2>Thêm Sản Phẩm Mới</h2>
-            <form method="POST">
-                <div class="form-group">
-                    <label>ID Sản Phẩm (Số thứ tự)</label>
-                    <input type="number" name="id" placeholder="Nhập ID" required>
-                </div>
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Tên Sản Phẩm</label>
                     <input type="text" name="name" placeholder="Nhập tên sản phẩm" required>
@@ -83,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-group">
                     <label>Tên tệp ảnh (Kèm đuôi .jpg, .png)</label>
-                    <input type="text" name="image" placeholder="...jpg" required>
+                    <input type="file" name="image" placeholder="...jpg" required>
                 </div>
                 <div class="form-group">
                     <label>Mô Tả</label>

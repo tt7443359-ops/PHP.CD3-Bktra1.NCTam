@@ -17,7 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows($check_email) > 0) {
             // Cập nhật mật khẩu mới
             // Lưu thẳng
-            $sql_update = "UPDATE users SET password = '$new_pass' WHERE email = '$email'";
+            $safe_new_pass = mysqli_real_escape_string($conn, $new_pass);
+            $sql_update = "UPDATE users SET password = '$safe_new_pass' WHERE email = '$email'";
             
             if (mysqli_query($conn, $sql_update)) {
                 echo "<script>alert('Đặt lại mật khẩu thành công!'); window.location.href='login.php';</script>";

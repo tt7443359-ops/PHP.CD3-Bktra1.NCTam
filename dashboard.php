@@ -85,7 +85,7 @@ $total_orders   = countRows($conn, "contacts");
     <div class="nav-links">
       <a href="admin_messages.php">Phản Hồi Khách Hàng</a>
       <a href="index.php">Trang Chủ</a>
-      <a href="products/index1.php">Sản phẩm</a>
+      <a href="products/admin_products.php">Sản phẩm</a>
       <a href="contact.php">Liên Hệ</a>
       <a href="logout.php">Đăng Xuất</a>
     </div>
@@ -111,7 +111,7 @@ $total_orders   = countRows($conn, "contacts");
       </div>
     </div>
 
-    <button class="btn" onclick="window.location.href='products/index1.php';">
+    <button class="btn" onclick="window.location.href='products/admin_products.php';">
         Quản Lý Sản Phẩm
     </button>
   </div>

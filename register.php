@@ -21,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 2. Chặn trùng mail
     if (empty($errors)) {
-        $check_mail = "SELECT id FROM users WHERE email = '$email' LIMIT 1";
+        $safe_email = mysqli_real_escape_string($conn, $email);
+        $check_mail = "SELECT id FROM users WHERE email = '$safe_email' LIMIT 1";
         $result = mysqli_query($conn, $check_mail);
         if (mysqli_num_rows($result) > 0) {
             $errors['email'] = "Email này đã được đăng ký. Vui lòng dùng mail khác!";
@@ -41,8 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 4. Lưu vào csdl và cookie
     if (empty($errors)) {
         $ip = $_SERVER['REMOTE_ADDR']; // Lấy ip users
+        $safe_username = mysqli_real_escape_string($conn, $username);
+        $safe_email = mysqli_real_escape_string($conn, $email);
+        $safe_password = mysqli_real_escape_string($conn, $password);
+        $safe_ip = mysqli_real_escape_string($conn, $ip);
         // Lưu vào bảng users
-        $sql = "INSERT INTO users (fullname, email, password, ip_address) VALUES ('$username', '$email', '$password', '$ip')";
+        $sql = "INSERT INTO users (fullname, email, password, ip_address) VALUES ('$safe_username', '$safe_email', '$safe_password', '$safe_ip')";
         
         if (mysqli_query($conn, $sql)) {
             // Set Cookie
@@ -147,13 +152,45 @@ input:focus {
     text-decoration: none;
     font-weight: 600;
 }
+.links a:hover {
+    text-decoration: underline;
+}
+
+/* ANIMATIONS */
+.fade-in-down {
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
 </style>
 </head>
 <body>
       
-<div class="container">
+<div class="container fade-in-down">
     <h2>Đăng Ký</h2>
-     <?php if ($success_msg): ?>
+     <?php if  (!empty($success_msg)): ?>
          <p class="success-msg"><?php echo $success_msg; ?></p>
      <?php endif; ?>
 

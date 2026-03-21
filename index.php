@@ -1,9 +1,4 @@
-<?php 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -26,7 +21,7 @@ if (session_status() === PHP_SESSION_NONE) {
         /* HEADER */
         header {
             background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5);
-            padding: 20px 80px;
+            padding: 5px 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -51,7 +46,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* HERO */
         .hero {
-            height: 80vh;
+            height: 90vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -111,8 +106,8 @@ if (session_status() === PHP_SESSION_NONE) {
         footer {
             background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5);
             text-align: center;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 10px;
+            margin-top: 10px;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
         }
     </style>
@@ -136,9 +131,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <div>
         <h1>Chào Mừng Đến Với ShopLIGHTNOVEL2X</h1>
         <p>
-            Đây là nơi bạn có thể khám phá các dịch vụ tuyệt vời của Shop.
-            Hãy đăng ký hoặc đăng <br>nhập để trải nghiệm ngay hôm nay!<br>"Và đơn nhiên là d**l có dịch vụ nào ở đây cả"
-            <br>Surprise mother f*cker
+            Hãy đăng ký hoặc đăng <br>nhập để trải nghiệm ngay hôm nay!
         </p>
 
         <?php if (isset($_SESSION['admin_logged_in'])): ?>
