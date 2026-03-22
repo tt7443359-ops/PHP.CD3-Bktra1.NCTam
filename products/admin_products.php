@@ -19,21 +19,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>Quản Lý Sản Phẩm - Admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="Stylesheet" href="../logo.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; text-decoration: none; }
+<?php
+$page_title = "Quản Lý Sản Phẩm - Admin";
+require_once "../include/header.php";
+?>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; text-decoration: none; }
     body { background: linear-gradient(to bottom, #f0fcf9, #e6f0ff); min-height: 100vh; display: flex; flex-direction: column; }
-    .navbar { background: #f5f5f5; padding: 25px 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-    .logo-container { border: 2px solid #4f46e5; }
-    .nav-links a { margin-left: 25px; color: #333; font-weight: 600; transition: 0.3s; }
-    .nav-links a:hover { color: #4f46e5; }
     .container { padding: 40px 60px; flex: 1; }
     .header-action { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
     h2 { color: #1f2937; font-size: 28px; }
@@ -117,18 +110,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 
     footer { text-align: center; padding: 20px; background: #f5f5f5; color: #555; margin-top: auto; }
   </style>
-</head>
-<body>
-
-  <div class="navbar">
-    <div class="logo-container"><img src="../img/images.jpg" alt="Logo" style="height: 50px;"></div>
-    <div class="nav-links">
-      <a href="../dashboard.php">Dashboard</a>
-      <a href="index1.php">Giao diện User</a>
-      <a href="../logout.php">Đăng xuất</a>
-    </div>
-  </div>
-
   <div class="container">
     <div class="header-action">
       <h2>Quản Lý Sản Phẩm (Admin)</h2>
@@ -163,7 +144,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
   </div>
 
   <footer>
-    &copy; 2026 ShopLIGHTNOVEL2X - Quản lý Admin.
+    &copy; 2026 ShopLIGHTNOVEL2X - Quản lý.
   </footer>
 
 </body>

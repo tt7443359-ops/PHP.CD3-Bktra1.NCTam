@@ -1,131 +1,75 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Trang Chủ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="Stylesheet" href="logo.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+<?php
+session_start();
+$page_title = "Trang Chủ";
+require_once "include/header.php";
+?>
+<style>
+/* HERO */
+.hero {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom,#f0fcf9, #e6f0ff);
+    padding: 20px;
 
-        body {
-            background: #f5f7fa;
-        }
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/anime-guilty-crown-inori-yuzuriha-hd-wallpaper-preview.jpg');
+    background-size: cover;      
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    
+    color: white;
+}
 
-        /* HEADER */
-        header {
-            background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5);
-            padding: 5px 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
+.hero p {
+    font-size: 18px;
+    color: #e9e6e6;
+    margin-bottom: 30px;
+}
 
-        nav a {
-            margin-left: 30px;
-            text-decoration: none;
-            color: #e7e2e2;
-            font-weight: 500;
-        }
+.btn {
+    padding: 16px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    display: inline-block;
+}
 
-        nav a:hover {
-            color: #182230;
-        }
+.btn-primary {
+    background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5);
+    color: white;
+}
 
-        /* HERO */
-        .hero {
-            height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(to bottom,#f0fcf9, #e6f0ff);
-            padding: 20px;
+.btn-primary:hover {
+     background: linear-gradient(75deg, #d52b1e, #7551d8);
+}
 
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/anime-guilty-crown-inori-yuzuriha-hd-wallpaper-preview.jpg');
-            background-size: cover;      
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed; 
-            
-            color: white;
-        
-        }
+.btn-secondary {
+    background: #e5e7eb;
+    color: #333;
+}
 
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
+.btn-secondary:hover {
+    background: #d1d5db;
+}
 
-        .hero p {
-            font-size: 18px;
-            color: #e9e6e6;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            padding: 16px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 0 10px;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5);
-            color: white;
-        }
-
-        .btn-primary:hover {
-             background: linear-gradient(75deg, #d52b1e, #7551d8);
-        }
-
-        .btn-secondary {
-            background: #e5e7eb;
-            color: #333;
-        }
-
-        .btn-secondary:hover {
-            background: #d1d5db;
-        }
-
-        /* FOOTER */
-        footer {
-            background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5);
-            text-align: center;
-            padding: 10px;
-            margin-top: 10px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="logo-container"> <img src="img/images.jpg" alt="Logo"></div>
-    <nav>
-        <a href="index.php">Trang Chủ</a>
-        <?php 
-        // Hiện nếu là Khách hoặc Admin
-        if (isset($_SESSION['user']) || isset($_SESSION['admin_logged_in'])): ?>
-            <a href="products/index1.php">Sản phẩm</a>
-        <?php endif; ?>
-        <a href="contact.php">Liên hệ</a>
-    </nav>
-</header>
+/* FOOTER */
+footer {
+    background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5);
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+</style>
 
 <section class="hero">
     <div>

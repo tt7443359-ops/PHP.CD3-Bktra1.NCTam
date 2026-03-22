@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'db_product.php';
-require_once("../auth_check.php");
 
 // Lấy ID từ URL
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -17,35 +16,33 @@ if (!$product) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title><?php echo $product['name']; ?> - Chi tiết</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Poppins', sans-serif; background: #f0fcf9; padding: 50px; }
-        .detail-container { 
-            max-width: 900px; margin: 0 auto; background: white; 
-            padding: 30px; border-radius: 20px; display: flex; gap: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .left img { width: 350px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .right { flex: 1; }
-        .price { color: #ef4444; font-size: 24px; font-weight: bold; margin: 20px 0; }
-        .desc { color: #555; line-height: 1.6; margin-bottom: 30px; }
-        .btn-back { text-decoration: none; color: #4f46e5; font-weight: 600; display: inline-block; margin-bottom: 20px; }
-        .buy-actions { display: flex; gap: 15px; }
+<?php
+$page_title = $product['name'] . " - Chi tiết";
+require_once "../include/header.php";
+?>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    body { font-family: 'Poppins', sans-serif; background: #f0fcf9; padding-bottom: 50px; }
+    .detail-container { 
+        max-width: 900px; margin: 50px auto; background: white; 
+        padding: 30px; border-radius: 20px; display: flex; gap: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .left img { width: 350px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .right { flex: 1; }
+    .price { color: #ef4444; font-size: 24px; font-weight: bold; margin: 20px 0; }
+    .desc { color: #555; line-height: 1.6; margin-bottom: 30px; }
+    .btn-back { text-decoration: none; color: #4f46e5; font-weight: 600; display: inline-block; margin-bottom: 20px; }
+    .buy-actions { display: flex; gap: 15px; }
 
-        .btn-buy { 
-            background: linear-gradient(75deg, #4f46e5, #7c3aed); color: white; 
-            padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn-buy:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4); }
-    </style>
-</head>
-<body>
+    .btn-buy { 
+        background: linear-gradient(75deg, #4f46e5, #7c3aed); color: white; 
+        padding: 12px 20px; border-radius: 10px; text-decoration: none; font-weight: bold;
+        transition: 0.3s;
+    }
+    .btn-buy:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4); }
+</style>
+
 
     <div class="detail-container">
         <div class="left">
@@ -61,12 +58,14 @@ if (!$product) {
             <p class="desc"><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
             
             <div class="buy-actions">
-                <?php
-                // Hiển thị nếu không phải Ad
-                if (!isset($_SESSION['admin_logged_in'])): 
-                ?>
-                <a href="add_to_cart.php?id=<?php echo $product['id']; ?>" class="btn-buy" style="background: #64c5c5;">Thêm giỏ hàng</a>
-                <a href="checkout.php?id=<?php echo $product['id']; ?>" class="btn-buy">Mua Ngay</a>
+                <?php if (!isset($_SESSION['admin_logged_in'])): ?>
+                    <?php if (isset($_SESSION['user']) || isset($_COOKIE['stored_email'])): ?>
+                        <a href="add_to_cart.php?id=<?php echo $product['id']; ?>" class="btn-buy" style="background: #64c5c5;">Thêm giỏ hàng</a>
+                        <a href="checkout.php?id=<?php echo $product['id']; ?>" class="btn-buy">Mua Ngay</a>
+                    <?php else: ?>
+                        <a href="../login.php" class="btn-buy" style="background: #64c5c5;">Thêm giỏ hàng</a>
+                        <a href="../login.php" class="btn-buy">Mua Ngay</a>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

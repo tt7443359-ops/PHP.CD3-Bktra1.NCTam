@@ -31,6 +31,7 @@ $result = mysqli_query($conn, $sql);
     </style>
 </head>
 <body>
+
     <h2>Danh sách tin nhắn từ khách hàng</h2>
     <table>
         <tr>

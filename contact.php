@@ -36,16 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<title>Liên Hệ</title>
-<link rel="Stylesheet" href="logo.css">
-<link rel="Stylesheet" href="contact.css">
-</head>
+$page_title = "Liên Hệ";
+require_once "include/header.php";
+?>
+<link rel="stylesheet" href="contact.css">
 <style>
     body {
         margin: 0;
@@ -58,24 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         background-size: 700px auto !important; 
         background-attachment: fixed !important;
     }
-    
 </style>
-<body>
-    
-<div class="navbar">
-    <b><div class="logo-container"> <img src="img/images.jpg" alt="Logo"></div> </b>
-    <div>
-        <a href="index.php">Trang Chủ</a>
-         <?php 
-        // Hiện nếu là Khách hoặc Admin
-         if (isset($_SESSION['user']) || isset($_SESSION['admin_logged_in'])): ?>
-            <a href="products/index1.php">Sản phẩm</a>
-        <?php endif; ?>
-        <a href="contact.php">Liên Hệ</a>
-    </div>
-</div>
 
-<div class="container">
+<div class="container" style="margin-top: 50px;">
     <h2>Liên Hệ Với Admin</h2>
 
     <?php if($success != "") echo "<div class='success'>$success</div>"; ?>

@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <form method="POST">
         <label>Email đăng ký</label>
-        <input type="email" name="email" placeholder="Nhập email của ông" required>
+        <input type="email" name="email" placeholder="Vui lòng nhập email" required>
 
         <label>Mật khẩu mới</label>
         <input type="password" name="new_password" placeholder="Nhập mật khẩu mới" required>

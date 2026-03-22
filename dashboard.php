@@ -13,17 +13,12 @@ function countRows($conn, $table, $column = "*") {
 $total_products = countRows($conn, "products");
 $total_users    = countRows($conn, "users", "email"); 
 $total_orders   = countRows($conn, "contacts");
+
+$page_title = "Dashboard Admin";
+require_once "include/header.php";
 ?>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard Admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="logo.css">
   <link rel="stylesheet" href="dashboard.css">
-</head>
 <style>
     body {
         margin: 0 !important;
@@ -45,29 +40,6 @@ $total_orders   = countRows($conn, "contacts");
         flex-direction: column !important;
         align-items: center !important;
     }
-    /* Navbar */
-    .navbar {
-      background: linear-gradient(75deg, #ec1a3d, #bb2d58, #e28ac0);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-      border-bottom: 1px solid #eee !important;
-      padding: 10px 60px; 
-      display: flex;
-      justify-content: space-between; 
-      align-items: center; 
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: #fffdfd !important; 
-      font-weight: 600 !important;
-      margin-left: 20px;
-      transition: 0.3s;
-    }
-    .nav-links a:hover {
-      color: #4f46e5 !important;;
-    }
-    .navbar h2 {
-      font-weight: 700;
-    }
     /* Footer */
     footer {
       text-align: center;
@@ -75,21 +47,7 @@ $total_orders   = countRows($conn, "contacts");
       background: linear-gradient(75deg, #ec1a3d, #bb2d58, #e28ac0);
       color: #ffffff;
     }
-    
-   
 </style>
-<body>
-
-  <div class="navbar">
-    <h2><div class="logo-container"><img src="img/images.jpg" alt="Logo"></div></h2>
-    <div class="nav-links">
-      <a href="admin_messages.php">Phản Hồi Khách Hàng</a>
-      <a href="index.php">Trang Chủ</a>
-      <a href="products/admin_products.php">Sản phẩm</a>
-      <a href="contact.php">Liên Hệ</a>
-      <a href="logout.php">Đăng Xuất</a>
-    </div>
-  </div>
 
   <div class="main">
     <h1>Tổng Quan Hệ Thống</h1>
@@ -111,7 +69,7 @@ $total_orders   = countRows($conn, "contacts");
       </div>
     </div>
 
-    <button class="btn" onclick="window.location.href='products/admin_products.php';">
+    <button class="btn" onclick="window.location.href='products/admin_products.php';" style="margin-top: 20px; padding: 10px 20px; background: #ec1a3d; color: white; border: none; border-radius: 5px; cursor: pointer;">
         Quản Lý Sản Phẩm
     </button>
   </div>

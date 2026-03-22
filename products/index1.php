@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'db_product.php'; 
-require_once '../auth_check.php';
 
 $products = getAllProducts($conn);
 
@@ -15,19 +14,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <title>Sản Phẩm</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="Stylesheet" href="../logo.css">
-</head>
+<?php
+$page_title = "Sản Phẩm";
+require_once "../include/header.php";
+?>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
       text-decoration: none;
@@ -38,32 +31,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-
-    .navbar {
-      background: #f5f5f5;
-      padding: 25px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .logo-container {
-      border: 2px solid #4f46e5;
-    }
-
-
-    .nav-links a {
-      text-decoration: none;
-      margin-left: 25px;
-      color: #333;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: #4f46e5;
     }
 
     .container {
@@ -203,45 +170,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
       gap:10px;
     }
 </style>
-<body>
-
-  <div class="navbar">
-    <div class="logo-container">
-      <img src="../img/images.jpg" alt="Logo">
-    </div>
-    <div class="nav-links">
-      <?php 
-        $total_items = 0;
-        if (isset($_SESSION['cart'])) {
-            foreach ($_SESSION['cart'] as $qty) {
-                $total_items += $qty;
-            }
-        }
-        // Hiển thị nếu không phải Ad
-        if (!isset($_SESSION['admin_logged_in'])): 
-        ?>
-        <a href="view_cart.php" class="btn-cart" style="position: relative; margin-right: 15px; text-decoration: none; color: inherit;">
-            🛒 Giỏ hàng 
-            <?php if ($total_items > 0): ?>
-                <span style="background: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 11px; position: absolute; top: -10px; right: -15px; font-weight: bold;">
-                    <?php echo $total_items; ?>
-                </span>
-            <?php endif; ?>
-        </a>
-    <?php endif; ?>
-      <?php 
-      // Hiện nếu Admin
-      if (isset($_SESSION['admin_logged_in'])): 
-        ?>
-      <a href="../dashboard.php">Dashboard</a>
-      <a href="../products/admin_products.php">admin_products</a>
-      <?php endif; ?>
-      <a href="../products/index1.php">Sản phẩm</a>
-      <a href="../contact.php">Liên Hệ</a>
-      <a href="../logout.php">Đăng xuất</a>
-    </div>
-  </div>
-
   <div class="container">
     <div class="header-action">
     <h2>Danh Sách Sản Phẩm</h2>
@@ -274,7 +202,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
         <div class="product-actions">
          <?php // Hiện nếu Admin
              if (isset($_SESSION['admin_logged_in'])): ?>
-         <?php // Nếu là Khách (Check cả Session hoặc Cookie)
+         <?php // Nếu là Khách đã đăng nhập (Check cả Session hoặc Cookie)
              elseif (isset($_SESSION['user']) || isset($_COOKIE['stored_email'])): ?>
              <a href="add_to_cart.php?id=<?php echo $row['id']; ?>" class="btn-edit01" style="border-color: #64c5c5; color: #64c5c5;">
                  Thêm giỏ hàng
@@ -284,8 +212,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
              </a>
          
          <?php else: ?>
-             <a href="../login.php" style="font-size: 12px; color: #999; text-decoration: none;">
-                 Đăng nhập để mua hàng
+             <a href="../login.php" class="btn-edit01" style="border-color: #64c5c5; color: #64c5c5;">
+                 Thêm giỏ hàng
+             </a>
+             <a href="../login.php" class="btn-add">
+                 Đặt hàng
              </a>
          <?php endif; ?>
      </div>
@@ -300,7 +231,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
   </div>
 
   <footer>
-    &copy; 2026 ShopLIGHTNOVEL2X - Hệ thống quản lý kho.
+    &copy; 2026 ShopLIGHTNOVEL2X
   </footer>
 
 </body>
