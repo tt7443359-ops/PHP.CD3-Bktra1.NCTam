@@ -1,0 +1,11 @@
+/* HERO */
+.hero { height: 90vh; display: flex; justify-content: center; align-items: center; text-align: center; background: linear-gradient(to bottom,#f0fcf9, #e6f0ff); padding: 20px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/anime-guilty-crown-inori-yuzuriha-hd-wallpaper-preview.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; color: white; }
+.hero h1 { font-size: 48px; margin-bottom: 20px; }
+.hero p { font-size: 18px; color: #e9e6e6; margin-bottom: 30px; }
+.btn { padding: 16px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 0 10px; display: inline-block; }
+.btn-primary { background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5); color: white; }
+.btn-primary:hover { background: linear-gradient(75deg, #d52b1e, #7551d8); }
+.btn-secondary { background: #e5e7eb; color: #333; }
+.btn-secondary:hover { background: #d1d5db; }
+/* FOOTER */
+footer { background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5); text-align: center; padding: 10px; margin-top: 10px; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }

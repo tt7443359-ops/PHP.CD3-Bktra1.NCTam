@@ -40,20 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $page_title = "Liên Hệ";
 require_once "include/header.php";
 ?>
-<link rel="stylesheet" href="contact.css">
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-                          url('img/wp6271426.jpg') !important;
-        
-        /*Lặp lại ảnh */
-        background-repeat: repeat !important; 
-        background-size: 700px auto !important; 
-        background-attachment: fixed !important;
-    }
-</style>
+<link rel="stylesheet" href="css/contact.css">
 
 <div class="container" style="margin-top: 50px;">
     <h2>Liên Hệ Với Admin</h2>

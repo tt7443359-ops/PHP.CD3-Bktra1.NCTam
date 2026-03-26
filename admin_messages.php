@@ -20,15 +20,7 @@ $result = mysqli_query($conn, $sql);
 <html>
 <head>
     <title>Quản lý Liên hệ</title>
-    <style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-        th { background-color: #46a5e5; color: white; }
-        td a:hover {
-            background-color: #ffcccc; 
-            transition: 0.3s; 
-        }
-    </style>
+    <link rel="stylesheet" href="css/admin_messages.css">
 </head>
 <body>
 

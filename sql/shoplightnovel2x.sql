@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 21, 2026 at 10:59 AM
+-- Generation Time: Mar 26, 2026 at 10:39 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -116,9 +116,9 @@ INSERT INTO `products` (`id`, `name`, `price`, `description`, `image_id`) VALUES
 (3, 'Arya Bàn Bên - Vol 1', '85000.00', '\"Arya Bàn Bên Thỉnh Thoảng Lại Trêu Ghẹo Tôi Bằng Tiếng Nga\" là câu chuyện tình học đường hài hước giữa Alisa Mikhailovna Kujō (Arya), nữ sinh người Nhật gốc Nga, tài năng, và người bạn cùng lớp Kuze Masachika. Arya thường dùng tiếng Nga để che giấu sự thẹn thùng khi trêu chọc Kuze, không biết rằng cậu thực chất hiểu được ngôn ngữ này, tạo nên những tình những tình huống ngại ngùng.', 'arya_v1.jpg'),
 (4, 'Arya Bàn Bên - Vol 2', '95000.00', 'Masachika liệu có hiểu được những gì Arya đang nói?', 'arya_v2.jpg'),
 (5, 'Netoge no Yome ga Ninki Idol datta ken ~Cool-kei no kanojo wa genjitsu demo yome no tsumori de iru~ - Vol 1', '110000.00', 'Câu chuyện tình cờ giữa Ayanokouji Kazuto – một nam sinh bình thường và Mizuki Rinka – một thần tượng nổi tiếng. Cả hai vốn là \"Cặp đôi\" trong một tựa game online, nhưng sự thật chỉ được phơi bày khi họ quyết định gặp mặt ngoài đời thực. Mối quan hệ của họ dần bước ra khỏi màn hình máy tính. Tình cảm của họ sẽ đi về đâu khi ranh giới giữa game và đời thực dần xóa nhòa?', 'idol_v1.jpg'),
-(6, 'Kanojo, okarishimasu - Vol 1', '110000.00', ' Mối quan hệ giả này dần nảy sinh tình cảm thật, kéo theo hàng loạt rắc rối hài hước và lãng mạn.\r\n', 'thue_v1.jpg'),
-(7, 'Saekano - Vol 1', '110000.00', 'LightNovel Saekano Hay tên đầy đủ(English):\"How to Raise a Boring Girlfriend\" kể về Aki Tomoya, một học sinh trung học quyết tâm tạo ra một game hẹn hò (Bishōjo game) dựa trên cuộc gặp gỡ định mệnh với Katō Megumi. Cậu thành lập nhóm sản xuất cùng các nữ chính khác để biến Megumi thành \"nữ chính hoàn hảo\" trong game, dẫn đến nhiều tình huống hài hước và lãng mạn. ', 'saekano_v1.jpg'),
-(8, 'Arya Bàn Bên - Vol 3', '95000.00', ' Tập trung vào sự phát triển tình cảm của Arya và Masachika sau các sự kiện hội học sinh. Cặp đôi dần thấu hiểu nhau hơn.', 'arya_v3.jpg');
+(6, 'Another Monster', '808000.00', '\"Cuốn tiểu thuyết trinh thám tâm lý không thể thiếu đối với bất kỳ fan hâm mộ nào của bộ truyện Monster. Dưới góc nhìn của nhà báo Werner Weber, độc giả sẽ được dẫn dắt qua những góc khuất chưa từng được tiết lộ trong Manga/Anime. Từ những bí mật tại Kinderheim 511 đến quá khứ xa xăm tại Tiệp Khắc, mỗi trang sách là một manh mối đưa bạn đến gần hơn với chân dung của \'Kẻ không tên\'. Một tuyệt tác lấp đầy những khoảng trống cuối cùng của huyền thoại.\"', 'monster.jpg'),
+(7, 'Another Episode S', '165000.00', 'Another Episode S không chỉ là một cuốn ngoại truyện, mà là chìa khóa mở ra những góc khuất tâm linh chưa từng được kể về nữ chính Misaki Mei. Trong khi Sakakibara đang phải chống chọi với lời nguyền tại Yomiyama, Mei đã có một chuyến nghỉ hè đầy ám ảnh tại một vùng biệt thự hẻo lánh – nơi cô gặp gỡ một \"linh hồn\" đang tìm kiếm chính xác cái chết của mình.', 'Another Episode S.jpg'),
+(8, 'KIZUMONOGATARI: Wound Tale', '450000.00', 'Kizumonogatari là phần tiền truyện đầy kịch tính mở đầu cho toàn bộ dòng đời của nam sinh Koyomi Araragi trong series Monogatari đình đám của tác giả NISIOISIN. Câu chuyện đưa độc giả quay ngược về kỳ nghỉ xuân định mệnh, nơi Araragi tình cờ bắt gặp Kiss-shot Acerola-orion Heart-under-blade – một nữ vương ma cà rồng huyền thoại đang thoi thóp trong tình trạng mất sạch tứ chi. Để cứu lấy mạng sống của cô, anh đã chấp nhận đánh đổi nhân tính của mình để trở thành một thuộc hạ ma cà rồng, từ đó dấn thân vào những cuộc đối đầu nghẹt thở với ba thợ săn quái vật sừng sỏ nhằm lấy lại các bộ phận cơ thể cho chủ nhân. Với lối dẫn truyện sắc sảo, những màn đối thoại thông minh đầy triết lý xen lẫn yếu tố siêu nhiên kỳ ảo, tác phẩm không chỉ giải mã nguồn gốc sức mạnh của Araragi mà còn khắc họa sâu sắc ranh giới mong manh giữa con người và quái vật, giữa sự hy sinh và lòng ích kỷ.', 'kizumonogatari01.jpg');
 
 -- --------------------------------------------------------
 

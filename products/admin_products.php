@@ -20,99 +20,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 ?>
 
 <?php
-$page_title = "Quản Lý Sản Phẩm - Admin";
+$page_title = "Quản Lý Sản Phẩm";
 require_once "../include/header.php";
 ?>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; text-decoration: none; }
-    body { background: linear-gradient(to bottom, #f0fcf9, #e6f0ff); min-height: 100vh; display: flex; flex-direction: column; }
-    .container { padding: 40px 60px; flex: 1; }
-    .header-action { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-    h2 { color: #1f2937; font-size: 28px; }
-    /*Css nút thêm products*/ 
-    .btn-add {
-      display: inline-flex; align-items: center; justify-content: center;
-      height: 45px; padding: 0 20px; font-size: 14px; font-weight: 600;
-      border-radius: 8px; color: white; border: none;
-      background: linear-gradient(75deg, #7551d8, #64c5c5, #1992d8);
-      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3); transition: 0.3s;
-    }
-    .btn-add:hover {
-      background: linear-gradient(75deg, #7551d8, #64c5c5);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr); /* Tối đa 4 khung mỗi hàng */
-      gap: 15px;
-    }
-
-    /* Card hàng ngang thu hẹp*/
-    .product-card {
-      background: white;
-      display: flex; 
-      align-items: center;
-      padding: 10px 15px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      transition: 0.3s;
-    }
-    .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-
-    .product-img img {
-      width: 60px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-right: 15px;
-      background: #f9f9f9;
-    }
-
-    .product-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-width: 0; /*...tên dài */
-    }
-
-    .product-name {
-      font-size: 14px; font-weight: 600; color: #333;
-      margin-bottom: 5px;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-    }
-
-    .product-price {
-      color: #ef4444; font-weight: bold; font-size: 13px;
-    }
-
-    .product-actions {
-      display: flex;
-      gap: 8px;
-      margin-left: 10px;
-    }
-
-    /*Css nút sửa xóa */
-    .btn-edit, .btn-delete {
-      font-size: 12px; font-weight: 600; padding: 5px 10px;
-      border-radius: 6px; transition: 0.2s; border: 1px solid;
-    }
-    .btn-edit { color: #4f46e5; border-color: #4f46e5; }
-    .btn-edit:hover { background: #4f46e5; color: white; }
-    .btn-delete { color: #ef4444; border-color: #ef4444; }
-    .btn-delete:hover { background: #ef4444; color: white; }
-
-    footer { text-align: center; padding: 20px; background: #f5f5f5; color: #555; margin-top: auto; }
-  </style>
+<link rel="stylesheet" href="../css/admin_products.css">
   <div class="container">
     <div class="header-action">
-      <h2>Quản Lý Sản Phẩm (Admin)</h2>
+      <h2>Quản Lý Sản Phẩm</h2>
       <a href="create.php" class="btn-add">+ Thêm Sản Phẩm Mới</a>
     </div>
 

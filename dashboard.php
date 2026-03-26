@@ -18,36 +18,7 @@ $page_title = "Dashboard Admin";
 require_once "include/header.php";
 ?>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="dashboard.css">
-<style>
-    body {
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow-x: hidden;
-    }
-    .main {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-                          url('img/inori-yuzuriha-crying-guilty-crown-thumb.jpg') !important;
-        background-size: cover !important;      
-        background-position: center !important;
-        background-attachment: fixed !important;
-        margin: 0 !important; 
-        padding: 60px 20px !important;
-        width: 100% !important; 
-        min-height: 85vh !important;
-        border-radius: 0 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: linear-gradient(75deg, #ec1a3d, #bb2d58, #e28ac0);
-      color: #ffffff;
-    }
-</style>
+  <link rel="stylesheet" href="css/dashboard.css">
 
   <div class="main">
     <h1>Tổng Quan Hệ Thống</h1>

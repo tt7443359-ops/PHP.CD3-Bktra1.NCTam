@@ -18,40 +18,9 @@ if (isset($_SESSION['cart'])) {
     <meta charset="UTF-8">
     <title><?php echo isset($page_title) ? $page_title : "ShopLIGHTNOVEL2X"; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo $base_url; ?>logo.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>css/logo.css">
     
-    <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .common-header {
-            background: linear-gradient(75deg, #d52b1e, #7551d8, #64c5c5);
-            padding: 5px 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            width: 100%;
-        }
-
-        .common-header nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #e7e2e2;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .common-header nav a:hover {
-            color: #182230;
-        }
-    </style>
+    <link rel="stylesheet" href="<?php echo $base_url; ?>css/header.css">
 </head>
 <body>
 <header class="common-header">
