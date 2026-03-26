@@ -44,10 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ip = $_SERVER['REMOTE_ADDR']; // Lấy ip users
         $safe_username = mysqli_real_escape_string($conn, $username);
         $safe_email = mysqli_real_escape_string($conn, $email);
-        $safe_password = mysqli_real_escape_string($conn, $password);
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $safe_hashed_password = mysqli_real_escape_string($conn, $hashed_password);
         $safe_ip = mysqli_real_escape_string($conn, $ip);
         // Lưu vào bảng users
-        $sql = "INSERT INTO users (fullname, email, password, ip_address) VALUES ('$safe_username', '$safe_email', '$safe_password', '$safe_ip')";
+        $sql = "INSERT INTO users (fullname, email, password, ip_address) VALUES ('$safe_username', '$safe_email', '$safe_hashed_password', '$safe_ip')";
         
         if (mysqli_query($conn, $sql)) {
             // Set Cookie

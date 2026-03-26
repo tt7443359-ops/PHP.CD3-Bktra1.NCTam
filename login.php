@@ -12,32 +12,38 @@
             $errors['login'] = "Vui lòng nhập đầy đủ thông tin.";
         } else {
             // 1. Kiểm tra Admin
-            $sql_admin = "SELECT * FROM `admin` WHERE (username = '$email' OR email = '$email') AND password = '$password' LIMIT 1";
+            $sql_admin = "SELECT * FROM `admin` WHERE (username = '$email' OR email = '$email') LIMIT 1";
             $res_admin = mysqli_query($conn, $sql_admin);
 
             if (mysqli_num_rows($res_admin) > 0) {
                 $row = mysqli_fetch_assoc($res_admin);
-                $_SESSION['admin_logged_in'] = true;
-                $_SESSION['admin_user'] = $row['username'];
-                header("Location: dashboard.php"); 
-                exit();
+                if (password_verify($password, $row['password'])) {
+                    $_SESSION['admin_logged_in'] = true;
+                    $_SESSION['admin_user'] = $row['username'];
+                    header("Location: dashboard.php"); 
+                    exit();
+                }
             }
 
             // 2. Kiểm tra khách (Truy vấn users)
-            $sql_user = "SELECT * FROM users WHERE email = '$email' AND password = '$password' LIMIT 1";
+            $sql_user = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
             $res_user = mysqli_query($conn, $sql_user);
 
             if (mysqli_num_rows($res_user) > 0) {
                $user_data = mysqli_fetch_assoc($res_user);
-               $_SESSION["user"] = $user_data['email'];
-               $_SESSION["username"] = $user_data['fullname'];
-            
-               // Hồi sinh cookie
-               setcookie("stored_email", $user_data['email'], time() + 86400, "/");
-               setcookie("stored_password", $user_data['password'], time() + 86400, "/");
-            
-               header("Location: products/index1.php");
-               exit();
+               if (password_verify($password, $user_data['password'])) {
+                   $_SESSION["user"] = $user_data['email'];
+                   $_SESSION["username"] = $user_data['fullname'];
+                
+                   // Hồi sinh cookie
+                   setcookie("stored_email", $user_data['email'], time() + 86400, "/");
+                   setcookie("stored_password", $password, time() + 86400, "/");
+                
+                   header("Location: products/index1.php");
+                   exit();
+               } else {
+                   $errors['login'] = "Email hoặc mật khẩu không chính xác.";
+               }
             } else {
                 $errors['login'] = "Email hoặc mật khẩu không chính xác.";
             }
