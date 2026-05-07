@@ -1,0 +1,297 @@
+body { font-family: 'Poppins', sans-serif; background: #fff; padding-bottom: 50px; }
+
+/* 3-Column Grid */
+.detail-container { 
+    max-width: 1200px; 
+    margin: 40px auto; 
+    background: white; 
+    padding: 20px; 
+    display: grid; 
+    grid-template-columns: 320px 1fr 280px; 
+    gap: 30px;
+}
+
+/* LEFT COLUMN - ZOOM CONTAINER */
+.col-left {
+    position: relative;
+}
+.img-zoom-container {
+    position: relative;
+    max-width: 100%;
+}
+.img-zoom-container img { 
+    width: 100%; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    display: block;
+    cursor: crosshair;
+}
+
+/* LENS (The small square over the image) */
+.img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    width: 160px;
+    height: 160px;
+    background-color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    display: none;
+}
+
+/* ── THUMBNAIL STRIP (Amazon-style) ─────────────── */
+.thumb-strip {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.thumb-item {
+    width: 50px;
+    height: 68px;
+    border: 1px solid #d5d9d9;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 2px;
+    flex-shrink: 0;
+    transition: border-color 0.1s, border-width 0.1s;
+}
+
+.thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.thumb-item:hover {
+    border: 2px solid #c45500;
+    padding: 1px;
+}
+
+.thumb-item.active {
+    border: 2px solid #c45500;
+    padding: 1px;
+}
+
+/* MIDDLE COLUMN */
+.col-middle {
+    position: relative;
+}
+
+.col-middle h1 { font-size: 24px; color: #0f1111; margin-top: 0; margin-bottom: 5px; line-height: 1.3; font-weight: 600;}
+.amz-author { font-size: 14px; color: #007185; margin-bottom: 5px; display: block;}
+.amz-rating { color: #ffa41c; margin-bottom: 15px; font-size: 14px; }
+.amz-rating span { color: #007185; margin-left: 5px; cursor: pointer; }
+
+.desc-title { font-weight: 700; font-size: 16px; margin: 20px 0 10px 0; border-top: 1px solid #e7e7e7; padding-top: 15px; }
+.desc { color: #0f1111; line-height: 1.6; font-size: 14px; }
+
+/* ── Read-more / collapse ───────────────────── */
+.desc-wrapper {
+    position: relative;
+    overflow: hidden;
+    max-height: 110px; /* ~5 dòng thu gọn */
+    transition: max-height 0.35s ease;
+}
+.desc-wrapper.expanded {
+    max-height: 9999px;
+}
+
+/* gradient fade ở cuối khi thu gọn */
+.desc-fade {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);
+    pointer-events: none;
+    transition: opacity 0.25s;
+}
+.desc-wrapper.expanded .desc-fade {
+    opacity: 0;
+}
+
+/* nút toggle */
+.desc-toggle {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #007185;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+}
+.desc-toggle:hover { color: #c45500; text-decoration: underline; }
+
+/* ZOOM RESULT BLOCK */
+.img-zoom-result {
+    border: 1px solid #e7e7e7;
+    width: calc(100% + 15px);
+    height: 500px;
+    position: absolute;
+    top: 0;
+    left: -15px;
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    z-index: 100;
+    display: none;
+}
+
+/* RIGHT COLUMN - BUY BOX */
+.col-right {
+    position: relative;
+}
+.buy-box {
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    padding: 18px;
+    position: sticky;
+    top: 20px;
+    background: #fff;
+}
+.buy-box .price { color: #b12704; font-size: 24px; font-weight: 500; margin: 0 0 15px 0; }
+.buy-box .stock-info {
+    font-size: 16px; color: #007600; font-weight: 600; margin-bottom: 15px;
+}
+.buy-box .stock-info.low-stock {
+    color: #b12704;
+}
+
+.btn-buy { 
+    display: block; width: 100%; text-align: center;
+    border-radius: 100px; text-decoration: none; font-weight: 400; font-size: 14px;
+    padding: 10px 0; margin-bottom: 10px; cursor: pointer;
+    box-shadow: 0 2px 5px rgba(15,17,17,.15);
+    border: 1px solid;
+}
+.btn-buy.yellow {
+    background: #ffd814;
+    border: 1px solid #fcd200;
+    color: #0f1111;
+}
+.btn-buy.yellow:hover { background: #dbba12; }
+
+.btn-buy.orange {
+    background: #f1870f;
+    border: 1px solid #fcd40d;
+    color: #0f1111;
+}
+.btn-buy.orange:hover { background: #f06d21; }
+
+/* ── Image Lightbox Modal ────────────────────── */
+.img-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.72);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+.img-modal-overlay.open {
+    display: flex;
+}
+
+.img-modal {
+    background: #fff;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    max-width: 1400px; 
+    width: 90vw;
+    height: 80vh; /* Chiều cao lớn để ảnh có không gian phóng to */
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+}
+
+/* Close button */
+.img-modal-close {
+    position: absolute;
+    top: 10px; right: 12px;
+    width: 32px; height: 32px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #555;
+    cursor: pointer;
+    line-height: 32px;
+    text-align: center;
+    z-index: 10;
+    padding: 0;
+    border-radius: 50%;
+    transition: background 0.15s;
+}
+.img-modal-close:hover { background: #f0f0f0; color: #111; }
+
+/* Left: large image */
+.img-modal-img-wrap {
+    flex: 1; /* Chiếm trọn không gian, tự động đẩy ảnh ra giữa không gian */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 30px;
+}
+.img-modal-img-wrap img {
+    max-width: 100%;
+    max-height: 100%; 
+    object-fit: contain;
+    display: block;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* Right: title + thumbs */
+.img-modal-info {
+    flex: 0 0 320px; /* Khóa cứng chiều rộng, ép toàn bộ thông tin sát về bên phải */
+    padding: 50px 30px 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+    border-left: none;
+}
+.img-modal-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f1111;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Thumbs inside modal */
+.img-modal-thumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.img-modal-thumbs .thumb-item {
+    width: 50px;
+    height: 68px;
+}
+.btn-read-sample {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px 0;
+    text-align: center;
+    border: 1px solid #d5d9d9;
+    border-radius: 20px;
+    background: #fff;
+    color: #0f1111;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(15,17,17,.1);
+}
+.btn-read-sample:hover { background: #f7f8f8; }

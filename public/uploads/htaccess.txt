@@ -1,0 +1,11 @@
+# 1. Chặn tất cả mọi file
+Order Deny,Allow
+Deny from all
+
+# 2. CHỈ cho phép những định dạng ảnh/tài liệu này được hiển thị
+<FilesMatch "(?i)\.(jpe?g|png|gif|webp|pdf)$">
+    Allow from all
+</FilesMatch>
+
+# 3. Tắt các quyền (CGI và liệt kê file)
+Options -Indexes -ExecCGI
