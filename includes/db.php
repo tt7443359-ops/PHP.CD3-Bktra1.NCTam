@@ -13,10 +13,10 @@ if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$host = "localhost";
-$user = "Inori";
-$pass = "inori123";
-$dbname = "novel2x";
+$host = "sql111.infinityfree.com";
+$user = "if0_41851637";
+$pass = "Tam17092009";
+$dbname = "if0_41851637_novel2x";
 
 $conn = mysqli_connect($host, $user, $pass, $dbname);
 if ($conn) {
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$base_url = '/novel2x/';
+$base_url = '/';
 $admin_email = "NCT@gmail.com";
 
 // Đa ngôn ngữ
